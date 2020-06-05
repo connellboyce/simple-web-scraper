@@ -37,7 +37,7 @@ public class PepperScraper implements Runnable {
         //pepperDetails.stream().forEach(e -> System.out.println(e.toString()));
 
         PeppersToJSONConverter converter = new PeppersToJSONConverter();
-        converter.convertToSystemOut(pepperDetails);
+        converter.convertToFile(pepperDetails);
     }
 
     /**
