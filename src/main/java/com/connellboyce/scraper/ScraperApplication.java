@@ -1,5 +1,6 @@
 package com.connellboyce.scraper;
 
+import com.connellboyce.scraper.converters.PeppersToJSONConverter;
 import com.connellboyce.scraper.scrapers.PepperScraper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

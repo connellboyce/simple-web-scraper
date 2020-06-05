@@ -1,5 +1,6 @@
 package com.connellboyce.scraper.scrapers;
 
+import com.connellboyce.scraper.converters.PeppersToJSONConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +34,10 @@ public class PepperScraper implements Runnable {
         findDetails();
 
         //Output to console
-        pepperDetails.stream().forEach(e -> System.out.println(e.toString()));
+        //pepperDetails.stream().forEach(e -> System.out.println(e.toString()));
+
+        PeppersToJSONConverter converter = new PeppersToJSONConverter();
+        converter.convertToSystemOut(pepperDetails);
     }
 
     /**
@@ -152,7 +156,8 @@ public class PepperScraper implements Runnable {
                         String label = cells.get(1).text();
                         String value = cells.get(2).text();
 
-                        pepperDetail.setImageURL(StringUtils.join(new String [] {baseURL, image}, "/"));
+                        String imageUrl = StringUtils.join(new String[]{baseURL, image}, "/");
+                        pepperDetail.setImageURL(StringUtils.replace(imageUrl," ", "%20"));
                         if (StringUtils.equalsIgnoreCase(label, "alternative names:")) pepperDetail.setAltNames(StringUtils.stripAccents(value));
 
                     }
