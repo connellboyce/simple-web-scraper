@@ -4,6 +4,7 @@ App to scrape pepper information from [ChilePlanet](http://www.chileplanet.eu/da
 ### Table of Contents
 1. [Installation and Usage](#Installation-and-Usage)
 2. [Dependencies](#Dependencies)
+3. [Notes](#Notes)
 
 
 ### **Installation and Usage**
@@ -40,3 +41,7 @@ $ mvn spring-boot:run
 * Apache Commons Lang3
 * Jackson Mapper ASL
 
+
+### **Notes**
+* Because we had to process ~170 inputs, I wanted to expedite the process by using multiple threads with an ExecutorService.
+    * Used 25 threads and cut the time by almost 4 times

@@ -1,5 +1,6 @@
 package com.connellboyce.scraper.converters;
 
+import com.connellboyce.scraper.PepperDetail;
 import com.connellboyce.scraper.scrapers.PepperScraper;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonGenerationException;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class PeppersToJSONConverter {
     ObjectMapper mapper = new ObjectMapper();
 
-    public void convertToSystemOut(Set<PepperScraper.PepperDetail> pepperSet) {
+    public void convertToSystemOut(Set<PepperDetail> pepperSet) {
         try {
             //mapper.enable(SerializationFeature.INDENT_OUTPUT);
             JsonGenerator jsonGenerator = mapper.getJsonFactory().createJsonGenerator(System.out, JsonEncoding.UTF8);
@@ -27,7 +28,7 @@ public class PeppersToJSONConverter {
         }
     }
 
-    public void convertToFile(Set<PepperScraper.PepperDetail> pepperSet) {
+    public void convertToFile(Set<PepperDetail> pepperSet) {
         try {
             //Convert object to JSON string and save into file directly
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File("pepperList.json"), pepperSet);
