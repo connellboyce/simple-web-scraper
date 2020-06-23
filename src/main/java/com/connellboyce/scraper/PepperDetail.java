@@ -13,8 +13,8 @@ public class PepperDetail {
     private String altNames;
     private String species;
     private String origin;
-    private String shuMin;
-    private String shuMax;
+    private String minSHU;
+    private String maxSHU;
     private String imageURL;
     private String description;
 
@@ -25,18 +25,18 @@ public class PepperDetail {
      * @param altNames the pepper's alternative names
      * @param species the pepper's species within Capsicum
      * @param origin the pepper's place of origin
-     * @param shuMin the pepper's minimum Scoville units
+     * @param minSHU the pepper's minimum Scoville units
      * @param shuMax the pepper's maximum Scoville units
      * @param imageURL the pepper's image URL
      * @param description the pepper's description in english
      */
-    public PepperDetail(String name, String altNames, String species, String origin, String shuMin, String shuMax, String imageURL, String description) {
+    public PepperDetail(String name, String altNames, String species, String origin, String minSHU, String shuMax, String imageURL, String description) {
         this.name = name;
         this.altNames = altNames;
         this.species = species;
         this.origin = origin;
-        this.shuMin = shuMin;
-        this.shuMax = shuMax;
+        this.minSHU = minSHU;
+        this.maxSHU = shuMax;
         this.imageURL = imageURL;
         this.description = description;
     }
@@ -78,20 +78,20 @@ public class PepperDetail {
         this.origin = origin;
     }
 
-    public String getShuMin() {
-        return shuMin;
+    public String getMinSHU() {
+        return minSHU;
     }
 
-    public void setShuMin(String shuMin) {
-        this.shuMin = shuMin;
+    public void setMinSHU(String minSHU) {
+        this.minSHU = minSHU;
     }
 
-    public String getShuMax() {
-        return shuMax;
+    public String getMaxSHU() {
+        return maxSHU;
     }
 
-    public void setShuMax(String shuMax) {
-        this.shuMax = shuMax;
+    public void setMaxSHU(String maxSHU) {
+        this.maxSHU = maxSHU;
     }
 
     public String getImageURL() {
@@ -121,8 +121,8 @@ public class PepperDetail {
         if (altNames != null ? !altNames.equals(that.altNames) : that.altNames != null) return false;
         if (species != null ? !species.equals(that.species) : that.species != null) return false;
         if (origin != null ? !origin.equals(that.origin) : that.origin != null) return false;
-        if (shuMin != null ? !shuMin.equals(that.shuMin) : that.shuMin != null) return false;
-        if (shuMax != null ? !shuMax.equals(that.shuMax) : that.shuMax != null) return false;
+        if (minSHU != null ? !minSHU.equals(that.minSHU) : that.minSHU != null) return false;
+        if (maxSHU != null ? !maxSHU.equals(that.maxSHU) : that.maxSHU != null) return false;
         if (imageURL != null ? !imageURL.equals(that.imageURL) : that.imageURL != null) return false;
         return description != null ? description.equals(that.description) : that.description == null;
     }
@@ -133,8 +133,8 @@ public class PepperDetail {
         result = 31 * result + (altNames != null ? altNames.hashCode() : 0);
         result = 31 * result + (species != null ? species.hashCode() : 0);
         result = 31 * result + (origin != null ? origin.hashCode() : 0);
-        result = 31 * result + (shuMin != null ? shuMin.hashCode() : 0);
-        result = 31 * result + (shuMax != null ? shuMax.hashCode() : 0);
+        result = 31 * result + (minSHU != null ? minSHU.hashCode() : 0);
+        result = 31 * result + (maxSHU != null ? maxSHU.hashCode() : 0);
         result = 31 * result + (imageURL != null ? imageURL.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
@@ -147,8 +147,8 @@ public class PepperDetail {
                 .add("altNames='" + altNames + "'")
                 .add("species='" + species + "'")
                 .add("origin='" + origin + "'")
-                .add("shuMin='" + shuMin + "'")
-                .add("shuMax='" + shuMax + "'")
+                .add("shuMin='" + minSHU + "'")
+                .add("shuMax='" + maxSHU + "'")
                 .add("imageURL='" + imageURL + "'")
                 .add("description='" + description + "'")
                 .toString();

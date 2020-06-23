@@ -8,6 +8,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 
 public class PepperDetailScraper implements Callable<PepperDetail> {
@@ -60,10 +63,10 @@ public class PepperDetailScraper implements Callable<PepperDetail> {
                     String label = cells.get(0).text();
                     String value = cells.get(1).text();
 
-                    if (StringUtils.equalsIgnoreCase(label, "origin:")) pepperDetail.setOrigin(value);
-                    if (StringUtils.equalsIgnoreCase(label, "species:")) pepperDetail.setSpecies(StringUtils.replace(value,"C. ", "Capsicum "));
-                    if (StringUtils.equalsIgnoreCase(label, "shu min.")) pepperDetail.setShuMin(value);
-                    if (StringUtils.equalsIgnoreCase(label, "shu max.")) pepperDetail.setShuMax(value);
+                    if (StringUtils.equalsIgnoreCase(label, "origin:")) pepperDetail.setOrigin(value.replace("-------",""));
+                    if (StringUtils.equalsIgnoreCase(label, "species:")) pepperDetail.setSpecies(StringUtils.replace(value,"C. ", ""));
+                    if (StringUtils.equalsIgnoreCase(label, "shu min.")) pepperDetail.setMinSHU(value.replace(".","").replace("-",""));
+                    if (StringUtils.equalsIgnoreCase(label, "shu max.")) pepperDetail.setMaxSHU(value.replace(".","").replace("-",""));
                 }
 
                 //The first row has an image and then 2 other cells, so it is handled as follows
@@ -72,8 +75,14 @@ public class PepperDetailScraper implements Callable<PepperDetail> {
                     String label = cells.get(1).text();
                     String value = cells.get(2).text();
 
-                    String imageUrl = StringUtils.join(new String[]{baseURL, image}, "/");
-                    pepperDetail.setImageURL(StringUtils.replace(imageUrl," ", "%20"));
+                    //URLs with special characters should look like http://www.chileplanet.eu/schede/pepper/Serrano%20Tampiqueño-.jpg
+
+                    String encodedImage = encodeValue(image).replace("+", "%20").replace("%2F","/").replace("%C2%92","%E2%80%99");
+                    String imageUrl = StringUtils.join(new String[]{baseURL, encodedImage}, "/");
+                    //String imageString = StringUtils.replace(imageUrl," ", "%20");
+                    //String imageString = StringUtils.replace(imageUrl," ", "%20");
+                    pepperDetail.setImageURL(imageUrl);
+
                     if (StringUtils.equalsIgnoreCase(label, "alternative names:")) pepperDetail.setAltNames(StringUtils.stripAccents(value));
 
                 }
@@ -115,5 +124,9 @@ public class PepperDetailScraper implements Callable<PepperDetail> {
     @Override
     public PepperDetail call() throws Exception {
         return findDetails();
+    }
+
+    private String encodeValue(String value) throws UnsupportedEncodingException {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
     }
 }
